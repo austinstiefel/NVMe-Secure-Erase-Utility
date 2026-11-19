@@ -1,0 +1,130 @@
+﻿<Window x:Class="NVMe_Secure_Erase.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" SizeToContent="WidthAndHeight"
+        Background="#09111e" WindowStyle="ToolWindow" 
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+
+    <Border BorderBrush="#3300e5ff" BorderThickness="1" Margin="10" Background="#0d1b2e" CornerRadius="8">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" ShadowDepth="5" BlurRadius="10" Opacity="0.5"/>
+        </Border.Effect>
+
+        <Grid Margin="15">
+
+            <!-- GEAR ICON (SETTINGS) - Bottom Right -->
+            <Button Content="⚙" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="30" Height="30" Cursor="Hand" ToolTip="Settings">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="#5c7a9c"/>
+                        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="GearBorder" Background="{TemplateBinding Background}" CornerRadius="15">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-2,0,0"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="GearBorder" Property="Background" Value="#3315253d"/>
+                                            <Setter Property="Foreground" Value="#00e5ff"/>
+                                            <Setter TargetName="GearBorder" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="8" Opacity="0.6"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,15,20,5">
+                <!-- Title -->
+                <TextBlock Text="NVME SECURE ERASE" Foreground="#00e5ff" FontFamily="Consolas" FontSize="22" FontWeight="Black" HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="15" Opacity="0.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="v1.0.0" Foreground="#e3f2fd" FontFamily="Consolas" FontSize="14" HorizontalAlignment="Center" Margin="0,2,0,8"/>
+
+                <!-- CHECK FOR UPDATES BUTTON (With Download Icon) -->
+                <Button Background="#15253d" Foreground="#00e5ff" FontFamily="Consolas" FontSize="11" FontWeight="Bold" Width="160" Height="25" BorderBrush="#5c7a9c" BorderThickness="1" Cursor="Hand" Margin="0,0,0,15">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="CHECK FOR UPDATES" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="↓" FontFamily="Segoe UI Symbol" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0,-2,0,0"/>
+                    </StackPanel>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="UpdateBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="UpdateBorder" Property="Background" Value="#CC15253d"/>
+                                    <Setter TargetName="UpdateBorder" Property="BorderBrush" Value="#00e5ff"/>
+                                    <Setter Property="Foreground" Value="#ffffff"/>
+                                    <Setter TargetName="UpdateBorder" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="10" Opacity="0.6"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="UpdateBorder" Property="Background" Value="#00e5ff"/>
+                                    <Setter Property="Foreground" Value="#09111e"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Rectangle Fill="#00e5ff" Height="1" Width="250" Margin="0,0,0,15" Opacity="0.4"/>
+
+                <!-- Details -->
+                <TextBlock Text="Author: Austin Stiefel" Foreground="#5c7a9c" FontFamily="Consolas" FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                <TextBlock Text="License: MIT (Open Source)" Foreground="#5c7a9c" FontFamily="Consolas" FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <TextBlock Text="A high-performance cryptographic sanitize utility for NVMe and SSD drives." Foreground="#809bb8" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Margin="0,0,0,25" Width="280"/>
+
+                <!-- Close Button -->
+                <Button Content="CLOSE" Click="CloseButton_Click" Background="#990d1b2e" Foreground="#00e5ff" FontFamily="Consolas" FontSize="14" FontWeight="Bold" Width="120" Height="35" BorderBrush="#5c7a9c" BorderThickness="1" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="BtnBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="BtnBorder" Property="Background" Value="#CC15253d"/>
+                                    <Setter TargetName="BtnBorder" Property="BorderBrush" Value="#00e5ff"/>
+                                    <Setter Property="Foreground" Value="#ffffff"/>
+                                    <Setter TargetName="BtnBorder" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="15" Opacity="0.8"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="BtnBorder" Property="Background" Value="#00e5ff"/>
+                                    <Setter Property="Foreground" Value="#09111e"/>
+                                    <Setter TargetName="BtnBorder" Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="5" Opacity="0.5"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,194 @@
+﻿<Window x:Class="NVMe_Secure_Erase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NVMe Secure Erase Utility" Height="500" Width="700"
+        MinWidth="650" MinHeight="500"
+        Icon="icon.ico" WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <Style x:Key="CyberButton" TargetType="Button">
+            <Setter Property="Background" Value="#990d1b2e"/>
+            <Setter Property="Foreground" Value="#00e5ff"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#5c7a9c"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover Effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#CC15253d"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#00e5ff"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                                <Setter TargetName="ButtonBorder" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="15" Opacity="0.8"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <!-- Click Effect -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#00e5ff"/>
+                                <Setter Property="Foreground" Value="#09111e"/>
+                                <Setter TargetName="ButtonBorder" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="5" Opacity="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DANGER BUTTON STYLE (RED) -->
+        <Style x:Key="DangerButton" TargetType="Button">
+            <Setter Property="Background" Value="#990d1b2e"/>
+            <Setter Property="Foreground" Value="#ff3d00"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#88ff3d00"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Solid Red Hover Effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#ff3d00"/>
+                                <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="#ff3d00"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                                <Setter TargetName="ButtonBorder" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#ff3d00" ShadowDepth="0" BlurRadius="20" Opacity="0.9"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <!-- Click Effect -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#b32a00"/>
+                                <Setter Property="Foreground" Value="#ffffff"/>
+                                <Setter TargetName="ButtonBorder" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#ff3d00" ShadowDepth="0" BlurRadius="5" Opacity="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- MAIN GLASS PANEL OVERLAY (Keeps text readable over the background image) -->
+    <Border Background="#8009111e" Margin="25" CornerRadius="8" BorderBrush="#3300e5ff" BorderThickness="5">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" ShadowDepth="5" BlurRadius="15" Opacity="0.1"/>
+        </Border.Effect>
+
+        <Grid>
+            <!-- MAIN MENU FRAME -->
+            <StackPanel x:Name="MenuFrame" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <!-- Glowing Title -->
+                <TextBlock Text="NVME SECURE ERASE" Foreground="#00e5ff" FontFamily="Consolas" FontSize="32" FontWeight="Black" HorizontalAlignment="Center" Margin="0,0,0,0">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="20" Opacity="0.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="H A R D W A R E   D E S T R U C T I O N   U T I L I T Y" Foreground="#5c7a9c" FontFamily="Consolas" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,25"/>
+                <Rectangle Fill="#00e5ff" Height="2" Width="400" Margin="0,0,0,30" Opacity="0.6"/>
+
+                <Button Content="RUN PORTABLE WIPER (WINDOWS)" Click="ShowPortableMode_Click" Style="{StaticResource CyberButton}" Width="400" Height="50" Margin="0,10,0,15"/>
+                <Button Content="DOWNLOAD BOOTABLE UTILITY (ISO)" Click="ExtractIso_Click" Style="{StaticResource CyberButton}" Width="400" Height="50" Margin="0,5,0,15"/>
+
+                <!-- DOWNLOAD PROGRESS UI -->
+                <ProgressBar x:Name="DownloadProgressBar" Height="15" Width="400" Margin="0,20,0,0" Visibility="Hidden" Background="#0d1b2e" Foreground="#00e5ff" BorderBrush="#5c7a9c" BorderThickness="1"/>
+                <TextBlock x:Name="DownloadStatusText" Text="Downloading: 0%" Foreground="#e3f2fd" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Center" Margin="0,8,0,0" Visibility="Hidden"/>
+            </StackPanel>
+
+            <!-- PORTABLE WIPER FRAME -->
+            <Grid x:Name="PortableFrame" Visibility="Hidden" Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="SELECT SSD/NVMe TARGET" Foreground="#00e5ff" FontFamily="Consolas" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="10" Opacity="0.4"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <ListBox x:Name="DriveListBox" Grid.Row="1" Background="#800d1b2e" Foreground="#e3f2fd" FontFamily="Consolas" FontSize="14" BorderBrush="#5c7a9c" BorderThickness="1" Margin="0,0,0,25" Padding="10"/>
+
+                <Grid Grid.Row="2">
+                    <Button Content="&lt;- BACK" Click="BackToMenu_Click" Style="{StaticResource CyberButton}" Width="130" Height="45" HorizontalAlignment="Left"/>
+                    <Button Content="ERASE DRIVE" Click="WipeDrive_Click" Style="{StaticResource DangerButton}" Width="180" Height="45" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </Grid>
+            <!-- CIRCULAR INFO BUTTON (BOTTOM RIGHT) -->
+            <Button Content="i" Click="InfoButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,15,15" Width="35" Height="35" Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#800d1b2e"/>
+                        <Setter Property="Foreground" Value="#00e5ff"/>
+                        <Setter Property="FontFamily" Value="Consolas"/>
+                        <Setter Property="FontSize" Value="18"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="BorderBrush" Value="#5c7a9c"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="IconBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="20">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="IconBorder" Property="Background" Value="#CC15253d"/>
+                                            <Setter TargetName="IconBorder" Property="BorderBrush" Value="#00e5ff"/>
+                                            <Setter Property="Foreground" Value="#ffffff"/>
+                                            <Setter TargetName="IconBorder" Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="#00e5ff" ShadowDepth="0" BlurRadius="15" Opacity="0.8"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+</Window>
