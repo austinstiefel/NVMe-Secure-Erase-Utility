@@ -1,4 +1,5 @@
-# NVMe Secure Erase
+<img width="1831" height="1154" alt="NVMe Secure Erase Utility" src="https://github.com/user-attachments/assets/f5db6356-d4d6-4e3c-a244-1039c902a250" />
+
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-10.0-purple.svg)](https://dotnet.microsoft.com/)
